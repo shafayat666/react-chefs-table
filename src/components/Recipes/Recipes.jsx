@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import Recipe from "../Recipe/Recipe";
 import SideBar from "../SideBar/SideBar";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Recipes = () => {
   //load data
@@ -14,21 +16,50 @@ const Recipes = () => {
   }, []);
 
   // send selected data
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState({
+    wantToCookRecipe: [],
+    currentlyCookingRecipe: []
+  })
 
-  const handleClick = (recipe) => {
+  const handleClick = (recipe, buttonId) => {
     const { recipe_name, preparing_time, calories, recipe_id } = recipe;
-    setItems(initValue => {
-      const newItem = [...initValue]; 
-      newItem.push({ recipe_name, preparing_time, calories }); 
-      return newItem; 
+  
+    setItems((prevState) => {
+      const { wantToCookRecipe, currentlyCookingRecipe } = prevState;
+  
+      if (buttonId === 0) {
+        const isRecipeExist = wantToCookRecipe.some((item) => item.recipe_id === recipe_id);
+  
+        if (!isRecipeExist) {
+          return {
+            ...prevState,
+            wantToCookRecipe: [...wantToCookRecipe, { recipe_name, preparing_time, calories, recipe_id }]
+          };
+        } else {
+          toast.warn("Item already exists in Want to Cook!", {
+            position: "bottom-right"
+          });
+          return prevState;
+        }
+      } else if (buttonId === 1) {
+        const isRecipeExist = currentlyCookingRecipe.some((item) => item.recipe_id === recipe_id);
+  
+        if (!isRecipeExist) {
+          return {
+            ...prevState,
+            currentlyCookingRecipe: [...currentlyCookingRecipe, { recipe_name, preparing_time, calories, recipe_id }]
+          };
+        } else {
+          toast.warn("Item already exists in Currently Cooking!", {
+            position: "bottom-right"
+          });
+          return prevState;
+        }
+      }
+  
+      return prevState;
     });
   };
-  useEffect(() => {
-    // console.log(item);
-  }, [items]);
-
-
 
   return (
     <div className="p-6 mx-auto bg-white shadow-lg rounded-lg">
@@ -52,9 +83,10 @@ const Recipes = () => {
           </div>
         </div>
         <div className="w-1/2 p-4">
-          <SideBar items={items}/>
+          <SideBar items={items} handleClick={handleClick} />
         </div>
       </div>
+      <ToastContainer></ToastContainer>
     </div>
   );
 };

@@ -1,4 +1,8 @@
-const CurrentlyCooking = () => {
+import PropTypes from 'prop-types';
+
+const CurrentlyCooking = ({recipes}) => {
+  // console.log(recipes)
+
   return (
     <div>
       <div>
@@ -11,26 +15,34 @@ const CurrentlyCooking = () => {
               <th className="px-4 py-2 border-b text-left">Calories</th>
             </tr>
           </thead>
-          <tbody>
 
-            <tr>
-              <td className="px-4 py-2 border-b text-gray-700">Recipe 1</td>
-              <td className="px-4 py-2 border-b text-gray-700">60 mins</td>
-              <td className="px-4 py-2 border-b text-gray-700">500 kcal</td>
-            </tr>
+          <tbody>
+            {
+              recipes.map((item, index) => (
+                <tr key={index}>
+                  <td className="px-4 py-2 border-b text-gray-700">{item.recipe_name}</td>
+                  <td className="px-4 py-2 border-b text-gray-700">{item.preparing_time} mins</td>
+                  <td className="px-4 py-2 border-b text-gray-700">{item.calories} kcal</td>
+                </tr>
+              ))
+            }
           </tbody>
           
           <tfoot>
             <tr className="font-semibold">
-              <td className="px-4 py-2 border-t text-left">Recipes: {439857}</td>
-              <td className="px-4 py-2 border-t text-left">{349857} Mins</td>
-              <td className="px-4 py-2 border-t text-left">{239847} kcal</td>
+              <td className="px-4 py-2 border-t text-left">Recipes: {recipes.length}</td>
+              <td className="px-4 py-2 border-t text-left">{recipes.reduce((total, recipe) => total + recipe.preparing_time, 0)} Mins</td>
+              <td className="px-4 py-2 border-t text-left">{recipes.reduce((total, recipe) => total + recipe.calories, 0)} kcal</td>
             </tr>
           </tfoot>
         </table>
       </div>
     </div>
   );
+};
+
+CurrentlyCooking.propTypes = {
+  recipes: PropTypes.array
 };
 
 export default CurrentlyCooking;

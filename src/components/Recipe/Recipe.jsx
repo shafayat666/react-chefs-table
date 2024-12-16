@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 
 const Recipe = ({recipe, handleClick}) => {
 
-  const {recipe_image, recipe_id, recipe_name, short_description, ingredients, preparing_time, calories} = recipe
+  const {recipe_image, recipe_name, short_description, ingredients, preparing_time, calories} = recipe;
+  const buttonId = 0;
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden w-full sm:w-80 mx-auto mb-6">
       {/* Recipe Image */}
@@ -38,7 +39,7 @@ const Recipe = ({recipe, handleClick}) => {
         </div>
 
         {/* Want to Cook Button */}
-        <button onClick={() => handleClick(recipe)} className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition">
+        <button onClick={() => handleClick(recipe, buttonId)}className="bg-blue-500 text-white py-2 px-4 rounded-full hover:bg-blue-600 transition">
           Want to Cook
         </button>
       </div>

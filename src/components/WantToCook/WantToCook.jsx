@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 
-const WantToCook = ({ items }) => {
-  console.log(items)
+const WantToCook = ({ items, handleClick }) => {
+  // console.log(items)
+  const buttonId = 1;
 
   return (
     <div>
@@ -24,7 +25,9 @@ const WantToCook = ({ items }) => {
                   <td className="px-4 py-2 border-b text-gray-700">{item.preparing_time} mins</td>
                   <td className="px-4 py-2 border-b text-gray-700">{item.calories} kcal</td>
                   <td className="px-4 py-2 border-b text-center">
-                    <button className="bg-green-500 text-white py-1 px-4 rounded-full hover:bg-green-600 transition">
+                    <button 
+                    onClick={() => handleClick(item, buttonId)}
+                    className="bg-green-500 text-white py-1 px-4 rounded-full hover:bg-green-600 transition">
                       Preparing
                     </button>
                   </td>
@@ -39,7 +42,8 @@ const WantToCook = ({ items }) => {
 };
 
 WantToCook.propTypes = {
-  items: PropTypes.array
+  items: PropTypes.array,
+  handleClick: PropTypes.func
 }
 
 export default WantToCook;
