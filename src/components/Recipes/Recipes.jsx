@@ -22,7 +22,7 @@ const Recipes = () => {
             <Recipe />
           </div>
         </div>
-        <div className="w-1/2 bg-green-200 p-4">
+        <div className="w-1/2 p-4">
           <SideBar />
         </div>
       </div>
