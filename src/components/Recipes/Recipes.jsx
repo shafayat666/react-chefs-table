@@ -23,13 +23,13 @@ const Recipes = () => {
 
   const handleClick = (recipe, buttonId) => {
     const { recipe_name, preparing_time, calories, recipe_id } = recipe;
-  
+
     setItems((prevState) => {
       const { wantToCookRecipe, currentlyCookingRecipe } = prevState;
-  
+
       if (buttonId === 0) {
         const isRecipeExist = wantToCookRecipe.some((item) => item.recipe_id === recipe_id);
-  
+
         if (!isRecipeExist) {
           return {
             ...prevState,
@@ -42,21 +42,14 @@ const Recipes = () => {
           return prevState;
         }
       } else if (buttonId === 1) {
-        const isRecipeExist = currentlyCookingRecipe.some((item) => item.recipe_id === recipe_id);
-  
-        if (!isRecipeExist) {
-          return {
-            ...prevState,
-            currentlyCookingRecipe: [...currentlyCookingRecipe, { recipe_name, preparing_time, calories, recipe_id }]
-          };
-        } else {
-          toast.warn("Item already exists in Currently Cooking!", {
-            position: "bottom-right"
-          });
-          return prevState;
-        }
+        const remainingWantToCook = wantToCookRecipe.filter(i => i.recipe_id !== recipe_id)
+        // console.log(remainingWantToCook)
+        return {
+          wantToCookRecipe: remainingWantToCook,
+          currentlyCookingRecipe: [...currentlyCookingRecipe, { recipe_name, preparing_time, calories, recipe_id }]
+        };
       }
-  
+
       return prevState;
     });
   };
