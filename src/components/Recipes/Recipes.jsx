@@ -63,8 +63,8 @@ const Recipes = () => {
           Whether you&apos;re looking for quick meals, special dishes, or healthy options, we have something for everyone.
         </p>
       </div>
-      <div className="flex space-x-6 mt-6">
-        <div className="w-1/2 p-4 ">
+      <div className="flex space-x-6 mt-6 sm:inline xl:flex">
+        <div className="w-1/2 p-4 sm:w-full">
           <div className="grid grid-cols-2 gap-6">
             {
               recipes.map((recipe, index) => <Recipe
@@ -75,7 +75,7 @@ const Recipes = () => {
             }
           </div>
         </div>
-        <div className="w-1/2 p-4">
+        <div className="w-1/2 p-4 sm:w-full">
           <SideBar items={items} handleClick={handleClick} />
         </div>
       </div>
