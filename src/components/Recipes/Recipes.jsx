@@ -63,7 +63,7 @@ const Recipes = () => {
           Whether you&apos;re looking for quick meals, special dishes, or healthy options, we have something for everyone.
         </p>
       </div>
-      <div className="flex space-x-6 mt-6">
+      <div className="flex space-x-6 mt-6 sm:inline xl:flex">
         <div className="w-1/2 p-4 ">
           <div className="grid grid-cols-2 gap-6">
             {
